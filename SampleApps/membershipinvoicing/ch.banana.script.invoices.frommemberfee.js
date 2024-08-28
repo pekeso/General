@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// @id = ch.banana.script.invoices.frommemberfeenew
+// @id = ch.banana.script.invoices.frommemberfee
 // @version = 1.0
 // @pubdate = 2024-08-08
 // @publisher = Banana.ch SA
@@ -28,9 +28,16 @@
  * This script create invoice transactions 
    for accounts that have an amount in MemberFee in the table account.
  */
-   function exec() {
+   function exec(banDocument, isTest) {
+
+	if (isTest && !banDocument) 
+		return;
+	else if (isTest && banDocument) 
+		banDoc = banDocument;
+	else
+		banDoc = Banana.document;
 	
-	var tableAccounts = Banana.document.table('Accounts');
+	var tableAccounts = banDoc.table('Accounts');
 	
 	var userParam = initUserParam();
 
